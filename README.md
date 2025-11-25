@@ -2,8 +2,6 @@
 
 A production-grade, cloud-native vulnerability scanning platform built on AWS that automatically detects security vulnerabilities in Docker images using serverless architecture and containerized workers.
 
-![Architecture](docs/architecture-diagram.png)
-
 ## Project Overview
 
 This project demonstrates enterprise-level cloud architecture patterns including:
