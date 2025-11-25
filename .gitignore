@@ -1,0 +1,34 @@
+nano .gitignore
+```
+```
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+
+# AWS
+.aws/
+*.pem
+credentials
+
+# Secrets
+.env
+secrets.json
+config.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
