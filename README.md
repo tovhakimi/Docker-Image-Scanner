@@ -320,5 +320,4 @@ MIT License - See LICENSE file for details
 
 ## Author
 
-**Your Name**
 Tov [tovhakimi](https://github.com/tovhakimi)
