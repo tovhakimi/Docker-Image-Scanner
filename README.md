@@ -1,10 +1,9 @@
 # AWS Vulnerability Scanner as a Service
 
-A production-grade, cloud-native vulnerability scanning platform built on AWS that automatically detects security vulnerabilities in Docker images using serverless architecture and containerized workers.
+A cloud-native vulnerability scanning platform built on AWS that automatically detects security vulnerabilities in Docker images.
 
 ## Project Overview
 
-This project demonstrates enterprise-level cloud architecture patterns including:
 - Serverless API with AWS Lambda and API Gateway
 - Asynchronous job processing with SQS
 - Containerized workers on ECS Fargate
@@ -90,12 +89,6 @@ This project demonstrates enterprise-level cloud architecture patterns including
   "target": "nginx:latest"
 }
 ```
-
-**Status Codes:**
-- `202 Accepted` - Scan queued successfully
-- `400 Bad Request` - Invalid input
-- `500 Internal Server Error` - Server error
-
 ### Get Scan Results
 
 **Endpoint:** `GET /scans/{scan_id}`
@@ -129,12 +122,6 @@ This project demonstrates enterprise-level cloud architecture patterns including
   ]
 }
 ```
-
-**Scan Status Values:**
-- `queued` - Scan submitted, waiting for processing
-- `scanning` - Currently being scanned
-- `completed` - Scan finished successfully
-- `failed` - Scan encountered an error
 
 ## Technology Stack
 
@@ -304,71 +291,7 @@ aws ecs create-service --cluster vuln-scanner-cluster ...
 - Scale ECS tasks to zero when idle (save $30/month)
 - Implement S3 lifecycle policies (save on storage)
 
-## Testing
-
-### Local Testing
-```bash
-# Test Lambda function locally
-python lambda/submit-scan/lambda_function.py
-
-# Test scanner container
-docker run -e SQS_QUEUE_URL=... -e DB_HOST=... vuln-scanner
-```
-
-### API Testing
-```bash
-# Submit scan
-curl -X POST https://YOUR_API_URL/prod/scans \
-  -H "Content-Type: application/json" \
-  -d '{"type": "docker-image", "target": "nginx:latest"}'
-
-# Get results
-curl https://YOUR_API_URL/prod/scans/SCAN_ID
-```
-
-## Monitoring & Observability
-
-### CloudWatch Metrics
-- Lambda invocations, errors, duration
-- API Gateway requests, latency, 4xx/5xx errors
-- SQS queue depth, message age
-- ECS CPU/memory utilization
-
-### CloudWatch Logs
-- Lambda execution logs
-- ECS container logs
-- API Gateway access logs
-
-### Alarms
-- DLQ messages > 0 (failed scans)
-- API Gateway 5xx errors > threshold
-- Lambda errors > threshold
-- SQS queue depth > threshold
-
-## CI/CD Pipeline (Future Enhancement)
-```yaml
-# GitHub Actions workflow example
-name: Deploy
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Deploy Lambda
-        run: |
-          zip function.zip lambda_function.py
-          aws lambda update-function-code ...
-      - name: Build and push Docker
-        run: |
-          docker build -t vuln-scanner .
-          docker push ...
-```
-
-## 🐛 Known Issues & Limitations
+## Known Issues & Limitations
 
 1. **NAT Gateway Cost**: Expensive for hobby projects (~$33/month)
    - *Mitigation*: Use VPC endpoints or public RDS (less secure)
@@ -384,16 +307,6 @@ jobs:
 
 ## Learning Outcomes
 
-This project demonstrates proficiency in:
-- **AWS Cloud Architecture** - VPC, subnets, security groups, IAM
-- **Serverless Computing** - Lambda, API Gateway, event-driven design
-- **Container Orchestration** - Docker, ECS, Fargate
-- **Async Processing** - SQS queues, message-driven architecture
-- **Database Design** - PostgreSQL schema, relationships, indexing
-- **Security Best Practices** - Encryption, least privilege, network isolation
-- **RESTful API Design** - HTTP methods, status codes, resource modeling
-- **DevOps Practices** - Infrastructure as code, monitoring, logging
-
 ## References
 
 - [AWS Lambda Best Practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
@@ -408,16 +321,4 @@ MIT License - See LICENSE file for details
 ## Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
-
-## Acknowledgments
-
-- Aqua Security for Trivy scanner
-- AWS documentation and examples
-- Open-source community
-
----
-
-**Note**: This is a learning project demonstrating cloud architecture patterns. For production use, additional hardening, monitoring, and compliance controls would be required.
+Tov [tovhakimi](https://github.com/tovhakimi)
